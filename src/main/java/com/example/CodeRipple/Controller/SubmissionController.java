@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/submissions")
 public class SubmissionController {
@@ -28,6 +30,23 @@ public class SubmissionController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>(false, null, "Submission not found")));
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<ApiResponse<List<Submission>>> getSubmissionByUserId(@PathVariable String userId){
+        return submissionService.getSubmissionByUserId(userId);
+    }
+
+    @GetMapping("/problem/{problemId}")
+    public ResponseEntity<ApiResponse<List<Submission>>> getSubmissionByProblemId(@PathVariable Long problemId){
+        return submissionService.getSubmissionByProblemId(problemId);
+    }
+
+    @GetMapping("/{problemId}/{userId}")
+    public ResponseEntity<ApiResponse<List<Submission>>> getSubmissionByUserId(@PathVariable String userId, @PathVariable Long problemId){
+        return submissionService.getSubmissionByProblemIdAndUserId(problemId, userId);
+    }
+
+
 
 
 }
