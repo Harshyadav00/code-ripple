@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProblemService {
@@ -15,5 +16,13 @@ public class ProblemService {
 
     public List<Problem> getAllProblems() {
         return problemRepository.findAll() ;
+    }
+
+    public Problem createProblem(Problem problem) {
+        return problemRepository.save(problem);
+    }
+
+    public Optional<Problem> getProblemById(Long problemId) {
+        return problemRepository.findById(problemId);
     }
 }

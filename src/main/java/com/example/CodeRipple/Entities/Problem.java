@@ -1,7 +1,17 @@
 package com.example.CodeRipple.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Problem {
     @Id
@@ -12,9 +22,19 @@ public class Problem {
     private String description;
     private String inputSample;
     private String outputSample;
+    private String difficulty; // Easy, Medium, Hard
 
-    @Lob // For large inputs
-    private String testCases; // JSON format: [{"input":"...","output":"..."}]
+    @ElementCollection // For large inputs
+    private List<TestCases> testCases; // JSON format: [{"input":"...","output":"..."}]
+
+    public Problem(String title, String description, String inputSample, String outputSample, String difficulty, List<TestCases> testCases){
+        this.title = title ;
+        this.description = description ;
+        this.inputSample = inputSample ;
+        this.outputSample = outputSample ;
+        this.difficulty = difficulty ;
+        this.testCases = testCases ;
+    }
 
     // Getters and Setters
 }
