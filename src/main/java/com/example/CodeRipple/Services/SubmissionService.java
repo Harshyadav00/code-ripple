@@ -18,7 +18,6 @@ public class SubmissionService {
     private SubmissionRepository submissionRepository;
 
     public Submission saveSubmission(Submission submission){
-        submission.setStatus("Pending");
         return (Submission) submissionRepository.save(submission);
     }
 
